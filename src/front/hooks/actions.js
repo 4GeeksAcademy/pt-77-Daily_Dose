@@ -8,7 +8,6 @@ export const signup = async (dispatch, payload) => {
       body: JSON.stringify({
         email: payload.email,
         password: payload.password,
-        // Optional: you can add firstname/lastname if your backend supports it
       }),
     });
 
@@ -28,7 +27,7 @@ export const signup = async (dispatch, payload) => {
     }
   } catch (error) {
     console.error("Signup failed:", error.message);
-    throw error; // forward to caller (Signup.jsx)
+    throw error; 
   }
 };
 
