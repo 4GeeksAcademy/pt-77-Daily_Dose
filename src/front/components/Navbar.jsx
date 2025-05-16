@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className="navbar navbar-light bg-light">
       <div className="container">
         <Link to="/" className="navbar-brand mb-0 h1">
-          React Boilerplate
+          <img src="/logo.png" style={{width: "50px"}}/>
         </Link>
         <div className="ml-auto d-flex align-items-center">
           {!store.access_token ? (
