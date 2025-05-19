@@ -2,15 +2,22 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../hooks/actions";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { use } from "react";
 
 const Navbar = () => {
-  const { store, dispatch } = useGlobalReducer();
+  const { store, dispatch, getUser } = useGlobalReducer();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout(dispatch);
     navigate("/login");
   };
+
+  useEffect(() => {
+    if(!store.user?.first_name){
+      getUser()
+    }
+  },[])
 
   return (
     <nav className="navbar navbar-light bg-secondary">
