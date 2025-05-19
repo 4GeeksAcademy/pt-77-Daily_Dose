@@ -7,7 +7,7 @@ export const Private = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access_token");
     if (token && !store.access_token) {
       getUser(dispatch, token);
     }

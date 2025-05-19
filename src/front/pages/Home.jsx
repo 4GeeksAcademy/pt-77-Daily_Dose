@@ -37,12 +37,12 @@ export const Home = () => {
           <span>{store.message}</span>
         ) : (
           <span className="text-danger">
-            Loading message from the backend (make sure your python backend is running)...
+           Welcome to Daily Dose 
           </span>
         )}
       </div>
 
-      <Link to="/profile">GET STARTED</Link>
+      <Link className = "btn btn-danger"to="/signup">GET STARTED</Link>
     </div>
   );
 };

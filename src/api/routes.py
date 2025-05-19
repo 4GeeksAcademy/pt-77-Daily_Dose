@@ -29,9 +29,11 @@ def handle_hello():
 @api.route('/signup', methods=['POST'])
 def handle_signup():
     body = request.json
+    first_name = body['first_name']
+    last_name = body['last_name']
     body_email = body['email']
     body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
-    user = User(email=body_email, password=body_password, is_active=True)
+    user = User(email=body_email, password=body_password, first_name=first_name, last_name = last_name, is_active=True)
     
     db.session.add(user)
     db.session.commit()
