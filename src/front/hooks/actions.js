@@ -62,7 +62,8 @@ export const login = async (dispatch, payload) => {
   }
 };
 
-export const getUser = async (dispatch, token) => {
+export const getUser = async (dispatch, payload) => {
+  let token = sessionStorage.getItem("access_token")
   try {
     const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/private", {
       method: "GET",
