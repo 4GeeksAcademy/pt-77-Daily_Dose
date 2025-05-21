@@ -50,7 +50,7 @@ export const login = async (dispatch, payload) => {
       dispatch({
         type: "set_user",
         payload: {
-          user: data.user,
+          user: data.user || null,
           access_token: data.access_token,
         },
       });
@@ -90,11 +90,38 @@ export const getUser = async (dispatch, payload) => {
   }
 };
 
+
 export const logout = (dispatch) => {
   sessionStorage.removeItem("access_token");
   dispatch({
     type: "set_user",
     payload: { user: null, access_token: null },
   });
+};
+
+const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
+
+export const fetchRecommendations = async (genre) => {
+  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${genre}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.Response === "True") {
+      return data.Search.map(movie => ({
+        title: movie.Title,
+        year: movie.Year,
+        poster: movie.Poster,
+        type: movie.Type
+      }));
+    } else {
+      console.warn("OMDb API error:", data.Error);
+      return [];
+    }
+  } catch (error) {
+    console.error("OMDb fetch error:", error);
+    return [];
+  }
 };
 

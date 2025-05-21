@@ -1,5 +1,5 @@
 import React from "react";
-import useGlobalReducer from "../hooks/useGlobalReducer";
+import  useGlobalReducer  from "../hooks/useGlobalReducer";
 
 const MyPreferences = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -16,17 +16,18 @@ const MyPreferences = () => {
       <div className="row justify-content-center">
         {store.favorites.map((fav, index) => (
           <div key={index} className="card m-3" style={{ width: "18rem" }}>
-            <img
-              src={fav.image || ""}
-              className="card-img-top"
-              alt="..."
-              style={{ height: "250px", objectFit: "cover" }}
-            />
+            {fav.poster && (
+              <img
+                src={fav.poster}
+                alt={fav.title}
+                className="card-img-top"
+                style={{ height: "250px", objectFit: "cover" }}
+              />
+            )}
             <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">
-                {fav.mood} - {fav.activity}
-              </p>
+              <h5 className="card-title">{fav.title}</h5>
+              <p className="card-text"><strong>Type:</strong> movie</p>
+              <p className="card-text"><strong>Year:</strong> {fav.year || "Unknown"}</p>
               <button
                 className="btn btn-danger"
                 onClick={() => handleRemove(index)}
