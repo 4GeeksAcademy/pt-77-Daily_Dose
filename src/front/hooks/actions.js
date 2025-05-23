@@ -125,3 +125,30 @@ export const fetchRecommendations = async (genre) => {
   }
 };
 
+
+
+export const fetchBooksByGenre = async (genre) => {
+  try {
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${genre}`);
+    const data = await response.json();
+
+    if (data.items && data.items.length > 0) {
+      return data.items.slice(0, 5).map((book) => {
+        const volume = book.volumeInfo;
+        return {
+          title: volume.title || "Untitled",
+          author: volume.authors?.join(", ") || "Unknown",
+          image: volume.imageLinks?.thumbnail || "", 
+          type: "book",
+        };
+      });
+    } else {
+      console.warn("No books found for this genre.");
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    return [];
+  }
+};
+
