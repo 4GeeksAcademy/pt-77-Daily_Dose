@@ -15,8 +15,8 @@ import { Private } from "./pages/Private";
 import { Signup } from "./pages/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import Quiz from "./pages/Quiz";
-import PersonalizedContentBook from "./pages/PersonalizedContentBook";
-import MyBookPreferences from "./pages/MyBookPreferences";
+import PersonalizedContent from "./pages/PersonalizedContent";
+import MyPreferences from "./pages/MyPreferences";
 import Settings from "./pages/Settings";
 
 
@@ -40,8 +40,8 @@ export const router = createBrowserRouter(
       <Route path="/demo" element={<Demo />} />
       <Route path="/profile" element={<PrivateRoute><Private /></PrivateRoute>} />
       <Route path="/quiz" element={<Quiz />} />
-      <Route path="/personalized-books" element={<PersonalizedContentBook />} />
-      <Route path="/preferences" element={<MyBookPreferences />} />
+      <Route path="/personalized" element={<PersonalizedContent />} />
+      <Route path="/preferences" element={<MyPreferences />} />
       <Route path="/settings" element={<Settings />} />
 
 
