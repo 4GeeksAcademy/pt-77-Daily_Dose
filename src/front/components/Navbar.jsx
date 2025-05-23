@@ -49,7 +49,7 @@ const Navbar = () => {
                   <li><Link to="/preferences" className="dropdown-item"><i className="fa-solid fa-heart m-2"></i>My Preferences </Link></li>
                   <li>
                     <button className="dropdown-item" onClick={() => navigate("/settings")}>
-                     <i class="fa-solid fa-gear m-2"></i> Settings
+                     <i className="fa-solid fa-gear m-2"></i> Settings
                     </button>
                   </li>
                   <li><a onClick={handleLogout} className="dropdown-item fw-bold"> <i className="fa-solid fa-right-from-bracket m-2"></i>
