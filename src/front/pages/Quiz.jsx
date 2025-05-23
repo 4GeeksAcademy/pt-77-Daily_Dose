@@ -9,14 +9,14 @@ const Quiz = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const state = { feeling, activity };
-    navigate("/personalized-books", { state });
+    navigate("/personalized", { state });
   };
 
   return (
     <div className="container mt-5 text-center mx-auto w-50">
       <h2>Take this Quiz</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3 mt-4">
+        <div className="mb-3">
           <label htmlFor="feeling" className="form-label">
             How are you feeling today?
           </label>
