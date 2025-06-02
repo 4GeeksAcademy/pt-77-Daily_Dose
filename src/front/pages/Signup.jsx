@@ -14,7 +14,7 @@ export const Signup = () => {
   const handleSignup = (e) => {
     e.preventDefault();
     signup(dispatch, user);
-    navigate("/");
+    navigate("/login");
   };
 
   return (

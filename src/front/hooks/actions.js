@@ -152,3 +152,29 @@ export const fetchBooksByGenre = async (genre) => {
   }
 };
 
+export const updateUser = async (dispatch, store, updatedUser) => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/update_profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + store.access_token,
+      },
+      body: JSON.stringify(updatedUser),
+    });
+
+    if (res.ok) {
+      dispatch({
+        type: "set_user",
+        payload: { user: updatedUser, access_token: store.access_token },
+      });
+      return true;
+    } else {
+      console.error("Failed to update profile");
+      return false;
+    }
+  } catch (err) {
+    console.error("Error updating:", err);
+    return false;
+  }
+};
