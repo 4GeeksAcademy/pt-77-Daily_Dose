@@ -6,11 +6,16 @@ const Quiz = () => {
   const [feeling, setFeeling] = useState("");
   const [activity, setActivity] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const state = { feeling, activity };
-    navigate("/personalized-books", { state });
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const state = { feeling, activity };
+
+  if (activity === "book") {
+    navigate("/personalized-book", { state });
+  } else if (activity === "movie") {
+    navigate("/personalized-movie", { state });
+  }
+};
 
   return (
     <div className="container mt-5 text-center mx-auto w-50">

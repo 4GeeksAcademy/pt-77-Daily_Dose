@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../hooks/actions";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Settings = () => {
@@ -8,6 +9,7 @@ const Settings = () => {
 
   const [firstName, setFirstName] = useState(store.user?.first_name || "");
   const [lastName, setLastName] = useState(store.user?.last_name || "");
+  const [email, setEmail] = useState(store.user?.email || "");
   const [isEditing, setIsEditing] = useState(false);
 
   const handleClearPreferences = () => {
@@ -25,15 +27,19 @@ const Settings = () => {
     navigate("/quiz");
   };
 
-  const handleSave = () => {
-    const updatedUser = {
-      ...store.user,
-      first_name: firstName,
-      last_name: lastName,
-    };
-    dispatch({ type: "set_user", payload: { user: updatedUser, access_token: store.access_token } });
-    setIsEditing(false);
+const handleSave = async () => {
+  const updatedUser = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email
   };
+
+  const success = await updateUser(dispatch, store, updatedUser);
+  if (success) {
+    setIsEditing(false);
+  }
+};
+
 
   return (
     <div className="container text-center mt-5">
@@ -54,6 +60,12 @@ const Settings = () => {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="Last Name"
+              />
+               <input
+                className="form-control mt-2"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
               />
               <button className="btn btn-success btn-sm mt-2 me-2" onClick={handleSave}>
                 Save

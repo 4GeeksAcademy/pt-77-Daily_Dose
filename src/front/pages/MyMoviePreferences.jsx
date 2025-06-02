@@ -1,7 +1,7 @@
 import React from "react";
 import  useGlobalReducer  from "../hooks/useGlobalReducer";
 
-const MyPreferences = () => {
+const MyMoviePreferences = () => {
   const { store, dispatch } = useGlobalReducer();
 
   const handleRemove = (indexToRemove) => {
@@ -42,4 +42,4 @@ const MyPreferences = () => {
   );
 };
 
-export default MyPreferences;
+export default MyMoviePreferences;

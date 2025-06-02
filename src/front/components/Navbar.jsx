@@ -14,10 +14,10 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if(!store.user?.first_name){
+    if (!store.user?.first_name) {
       getUser()
     }
-  },[])
+  }, [])
 
   return (
     <nav className="navbar navbar-light bg-secondary">
@@ -43,13 +43,17 @@ const Navbar = () => {
                   Profile Page
                 </button>
                 <ul className="dropdown-menu">
-                   <li>
-                   <a className="dropdown-item" href="/quiz"><i className="fa-solid fa-circle-question m-2"></i>New Quiz</a>
-                    </li>
-                  <li><Link to="/preferences" className="dropdown-item"><i className="fa-solid fa-heart m-2"></i>My Preferences </Link></li>
+                  <li>
+                    <a className="dropdown-item" href="/quiz"><i className="fa-solid fa-circle-question m-2"></i>New Quiz</a>
+                  </li>
+                  <li className="dropdown-item">
+                    <i className="fa-solid fa-heart m-2"></i>
+                    <Link to="/preferences-book" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Books</Link>|
+                    <Link to="/preferences-movie" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Movies</Link>
+                  </li>
                   <li>
                     <button className="dropdown-item" onClick={() => navigate("/settings")}>
-                     <i className="fa-solid fa-gear m-2"></i> Settings
+                      <i className="fa-solid fa-gear m-2"></i> Settings
                     </button>
                   </li>
                   <li><a onClick={handleLogout} className="dropdown-item fw-bold"> <i className="fa-solid fa-right-from-bracket m-2"></i>
