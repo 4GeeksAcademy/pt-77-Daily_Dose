@@ -7,14 +7,21 @@ const Settings = () => {
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState(store.user?.first_name || "");
-  const [lastName, setLastName] = useState(store.user?.last_name || "");
-  const [email, setEmail] = useState(store.user?.email || "");
+  const [password, setPassword] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+
+  const handleSave = async () => {
+    const updatedUser = { password };
+    const success = await updateUser(dispatch, store, updatedUser);
+    if (success) {
+      setPassword("");
+      setIsEditing(false);
+    }
+  };
 
   const handleClearPreferences = () => {
     dispatch({ type: "load_favorites", payload: [] });
-    localStorage.removeItem("favorites");
+    localStorage.setItem("favorites", JSON.stringify([]));
   };
 
   const handleLogout = () => {
@@ -27,74 +34,49 @@ const Settings = () => {
     navigate("/quiz");
   };
 
-const handleSave = async () => {
-  const updatedUser = {
-    first_name: firstName,
-    last_name: lastName,
-    email: email
-  };
-
-  const success = await updateUser(dispatch, store, updatedUser);
-  if (success) {
-    setIsEditing(false);
-  }
-};
-
-
   return (
     <div className="container text-center mt-5">
-      <h2 className="mb-4">Settings</h2>
+      <h2 className="mb-3">Settings</h2>
       <div className="card mx-auto p-4 shadow" style={{ maxWidth: "400px" }}>
         <div className="mb-3">
-          <strong>Name:  </strong>
-          {isEditing ? (
-            <>
-              <input
-                className="form-control mt-2"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="First Name"
-              />
-              <input
-                className="form-control mt-2"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="Last Name"
-              />
-               <input
-                className="form-control mt-2"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-              />
-              <button className="btn btn-success btn-sm mt-2 me-2" onClick={handleSave}>
-                Save
-              </button>
-              <button className="btn btn-secondary btn-sm mt-2" onClick={() => setIsEditing(false)}>
-                Cancel
-              </button>
-            </>
-          ) : (
-            <>
-              {firstName} {lastName}
-              <button className="btn btn-link btn-sm ms-2" onClick={() => setIsEditing(true)}>
-                Edit
-              </button>
-            </>
-          )}
+          <strong>Password:</strong>
         </div>
 
-        <p><strong>Email:</strong> {store.user?.email || "example@email.com"}</p>
+        {isEditing ? (
+          <>
+            <input
+              className="form-control mt-2"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter new password"
+            />
+            <button className="btn btn-success mt-2 me-2" onClick={handleSave} disabled={!password.trim()}>
+              Save
+            </button>
+            <button className="btn btn-secondary mt-2" onClick={() => setIsEditing(false)}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button className="btn btn-link mt-2" onClick={() => setIsEditing(true)}>
+            Change Password
+          </button>
+        )}
 
-        <button className="btn btn-warning w-100 my-2" onClick={handleRetakeQuiz}>
+        <p className="mt-4">
+          <strong>Email:</strong> {store.user?.email || "example@mail.com"}
+        </p>
+
+        <button className="btn btn-warning mt-3" onClick={handleRetakeQuiz}>
           Retake Quiz
         </button>
 
-        <button className="btn btn-danger w-100 my-2" onClick={handleClearPreferences}>
+        <button className="btn btn-danger mt-2" onClick={handleClearPreferences}>
           Clear All Preferences
         </button>
 
-        <button className="btn btn-secondary w-100 my-2" onClick={handleLogout}>
+        <button className="btn btn-secondary mt-2" onClick={handleLogout}>
           Log Out
         </button>
       </div>

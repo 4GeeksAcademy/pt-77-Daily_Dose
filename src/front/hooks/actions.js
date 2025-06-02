@@ -1,6 +1,6 @@
 export const signup = async (dispatch, payload) => {
   try {
-    let response = await fetch(import.meta.env.VITE_BACKEND_URL + "/signup", {
+    let response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export const signup = async (dispatch, payload) => {
 
 export const login = async (dispatch, payload) => {
   try {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/login", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -65,7 +65,7 @@ export const login = async (dispatch, payload) => {
 export const getUser = async (dispatch, payload) => {
   let token = sessionStorage.getItem("access_token")
   try {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/private", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/private", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -176,5 +176,18 @@ export const updateUser = async (dispatch, store, updatedUser) => {
   } catch (err) {
     console.error("Error updating:", err);
     return false;
+  }
+};
+
+export const getSongsByGenre = async (genre) => {
+  const url = `https://itunes.apple.com/search?term=${genre}&entiy=song&limit=10`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results;
+  } catch (err) {
+    console.error("Failed to fetch songs:", err);
+    return [];
   }
 };
