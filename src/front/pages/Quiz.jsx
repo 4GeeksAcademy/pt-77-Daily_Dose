@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
@@ -14,6 +14,8 @@ const handleSubmit = (e) => {
     navigate("/personalized-book", { state });
   } else if (activity === "movie") {
     navigate("/personalized-movie", { state });
+  } else if (activity === "music") {
+    navigate("/personalized-music", { state });
   }
 };
 

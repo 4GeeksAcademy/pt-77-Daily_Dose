@@ -45,7 +45,7 @@ const handleAddPrefences = (rec) => {
 
   return (
     <div className="container mt-5 text-center">
-      <h2>Movie Recomendations:</h2>
+      <h2>🎥 Movie Recomendations:</h2>
 
       {recommendations.length > 0 ? (
         <div className="row justify-content-center">

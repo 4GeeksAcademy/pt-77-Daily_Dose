@@ -46,7 +46,7 @@ const PersonalizedContentBook = () => {
 
   return (
     <div className="container mt-5 text-center">
-      <h2>Books Recommendations:</h2>
+      <h2>📚 Books Recommendations:</h2>
       {recommendations.length > 0 ? (
         <div className="row justify-content-center mt-5">
           {recommendations.map((rec, index) => (

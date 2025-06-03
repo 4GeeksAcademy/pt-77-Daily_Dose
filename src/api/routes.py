@@ -8,7 +8,7 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required, create_access_token
 import hashlib
-
+from hashlib import sha256
 
 api = Blueprint('api', __name__)
 
@@ -27,19 +27,7 @@ def handle_hello():
 
 
 @api.route('/signup', methods=['POST'])
-<<<<<<< HEAD
-def handle_signup(): 
-   body = request.get_json() 
-   body_email = body['email']
-   body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
-   user = User(email = body_email, password = body_password)
 
-   db.session.add(user)
-   db.session.commit()
-
-   return jsonify("User created"), 200
-
-=======
 def handle_signup():
     body = request.json
     first_name = body['first_name']
@@ -52,12 +40,11 @@ def handle_signup():
     db.session.commit()
 
     return jsonify({ "msg": "User created successfully", "user_id": user.id  }), 200
->>>>>>> refs/remotes/origin/Navigation-and-Routing
 
 
 @api.route('/login', methods=['POST'])
 def handle_login():
-<<<<<<< HEAD
+
     body = request.get_json() 
     body_email = body['email']
     body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
@@ -76,7 +63,7 @@ def handle_get_user():
     user_email = get_jwt_identity()
     user = User.query.filter_by(email = user_email).first()
     return jsonify(user), 200
-=======
+
     body = request.get_json()
     body_email = body['email']
     body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
@@ -91,16 +78,8 @@ def handle_get_user():
 
 
 
-@api.route('/private', methods=[ 'GET'])
-@jwt_required()
-def handle_private():
-    user_email = get_jwt_identity()
-    user = User.query.filter_by(email=user_email).first()
-    
-    if user and user.is_active:
-        return jsonify(user=user.serialize()), 200
-    else:
-        return jsonify({"error": "Unauthorized or inactive user"}), 403
+
+
 
 @api.route('/api/update_profile', methods=["PUT"])
 @jwt_required()
@@ -108,24 +87,23 @@ def update_profile():
     try:
         user_email = get_jwt_identity()
         data = request.json
-        print("Received data:", data)
-
         user = User.query.filter_by(email=user_email).first()
+
         if not user:
             return jsonify({ "msg": "User not found" }), 404
 
-        user.first_name = data.get("first_name", user.first_name)
-        user.last_name = data.get("last_name", user.last_name)
-        user.email = data.get("email", user.email)
-        user.is_active=True
-        
+        new_password = data.get("password")
+        if new_password:
+            user.password = sha256(new_password.encode("utf-8")).hexdigest()
+
         db.session.commit()
-        return jsonify({ "msg": "Profile updated successfully" }), 200
+        return jsonify({ "msg": "Password updated successfully" }), 200
 
     except Exception as e:
-        print("Update failed:", e)
         return jsonify({ "msg": "Internal Server Error", "error": str(e) }), 500
 
 
 
->>>>>>> refs/remotes/origin/Navigation-and-Routing
+
+
+
