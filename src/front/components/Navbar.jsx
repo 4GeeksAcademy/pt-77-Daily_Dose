@@ -1,92 +1,72 @@
-import { Link } from "react-router-dom";
-import { Carousel } from "./Carousel";
-export const Navbar = () => {
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../hooks/actions";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { use } from "react";
+
+const Navbar = () => {
+  const { store, dispatch, getUser } = useGlobalReducer();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(dispatch);
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    if (!store.user?.first_name) {
+      getUser()
+    }
+  }, [])
+
   return (
-    <>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            Daily Dose
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                  Favorites
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  History
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Media types
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <nav className="navbar navbar-light bg-secondary">
+      <div className="container">
+        <Link to="/" className="navbar-brand mb-0 h1">
+          <img src="/logo.png" style={{ width: "50px" }} />
+        </Link>
+        <div className="ml-auto d-flex align-items-center">
+          {!store.access_token ? (
+            <>
+              <Link to="/signup">
+                <button className="btn btn-light mx-4">Signup</button>
+              </Link>
+              <Link to="/login">
+                <button className="btn btn-light">Login</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <span className="me-3 text-light">Hello, {store.user?.first_name || "User"}</span>
+              <div className="dropdown">
+                <button className="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Profile Page
+                </button>
+                <ul className="dropdown-menu">
                   <li>
-                    <a class="dropdown-item" href="#">
-                      Books
-                    </a>
+                    <a className="dropdown-item" href="/quiz"><i className="fa-solid fa-circle-question m-2"></i>New Quiz</a>
+                  </li>
+                  <li className="dropdown-item">
+                    <i className="fa-solid fa-heart m-2"></i>
+                    <Link to="/preferences-book" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Books</Link>|
+                    <Link to="/preferences-movie" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Movies</Link>
                   </li>
                   <li>
-                    <hr class="dropdown-divider"></hr>
+                    <button className="dropdown-item" onClick={() => navigate("/settings")}>
+                      <i className="fa-solid fa-gear m-2"></i> Settings
+                    </button>
                   </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Movies
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider"></hr>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      Music
-                    </a>
-                  </li>
+                  <li><a onClick={handleLogout} className="dropdown-item fw-bold"> <i className="fa-solid fa-right-from-bracket m-2"></i>
+                    Log Out
+                  </a></li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                  Profile
-                </a>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              ></input>
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-          </div>
+              </div>
+            </>
+          )}
         </div>
-      </nav>
-      <Carousel />
-    </>
+      </div>
+    </nav>
   );
 };
+
+export default Navbar;
