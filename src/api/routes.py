@@ -9,6 +9,11 @@ from flask_cors import CORS
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required, create_access_token
 import hashlib
 from hashlib import sha256
+import random
+
+
+
+
 
 api = Blueprint('api', __name__)
 
@@ -101,6 +106,30 @@ def update_profile():
 
     except Exception as e:
         return jsonify({ "msg": "Internal Server Error", "error": str(e) }), 500
+
+@api.route('/random-content', methods=['GET'])
+def get_random_content():
+    try:
+        music = db.session.execute(db.select(MediaItem).filter_by(category="music")).scalars().all()
+        books = db.session.execute(db.select(MediaItem).filter_by(category="book")).scalars().all()
+        movies = db.session.execute(db.select(MediaItem).filter_by(category="movie")).scalars().all()
+
+        print("Music:", music)
+        print("Books:", books)
+        print("Movies:", movies)
+
+        def random_one(items):
+            return random.choice(items).serialize() if items else {}
+
+        return jsonify({
+            "music": random_one(music),
+            "book": random_one(books),
+            "movie": random_one(movies)
+        })
+
+    except Exception as e:
+        print("ERROR in /random-content:", e)
+        return jsonify({ "error": str(e) }), 500
 
 
 
