@@ -49,7 +49,8 @@ const Navbar = () => {
                   <li className="dropdown-item">
                     <i className="fa-solid fa-heart m-2"></i>
                     <Link to="/preferences-book" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Books</Link>|
-                    <Link to="/preferences-movie" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Movies</Link>
+                    <Link to="/preferences-movie" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Movies</Link>|
+                    <Link to="/preferences-music" className="m-1" style={{color: 'black', textDecoration: 'none'}}>Music</Link>
                   </li>
                   <li>
                     <button className="dropdown-item" onClick={() => navigate("/settings")}>
