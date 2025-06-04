@@ -22,7 +22,10 @@ import MyMusicPreferences from "./pages/MyMusicPreferences";
 import PersonalizedContentMovie from "./pages/PersonalizedContentMovie";
 import PersonalizedContentMusic from "./pages/PersonalizedContentMusic";
 import Settings from "./pages/Settings";
-
+import { History} from "./pages/History";
+import { Favorites} from "./pages/Favorites";
+import { Movies } from "./pages/Movies";
+import { Music } from "./pages/Music";
 
 
 

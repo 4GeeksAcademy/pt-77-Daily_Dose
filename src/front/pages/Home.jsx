@@ -24,6 +24,7 @@ export const Home = () => {
         <p className="lead mx-auto" style={{ maxWidth: '600px' }}>
           Your personalized source for music, books, and more — tailored to your mood and interests.
         </p>
+    <div className="text-center mt-5">
 
         {store.user ? (
           <>

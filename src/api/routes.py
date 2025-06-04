@@ -32,6 +32,7 @@ def handle_hello():
 
 
 @api.route('/signup', methods=['POST'])
+
 def handle_signup():
     body = request.json
     first_name = body['first_name']
@@ -48,6 +49,26 @@ def handle_signup():
 
 @api.route('/login', methods=['POST'])
 def handle_login():
+
+    body = request.get_json() 
+    body_email = body['email']
+    body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
+    user = User.query.filter_by(email = body_email).first()
+    if user and user.password == body_password:
+        access_token = create_access_token(identity = user.email)
+        return jsonify(access_token = access_token), 200 
+    else:
+        return jsonify("User not Found"), 400
+    
+
+
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def handle_get_user():
+    user_email = get_jwt_identity()
+    user = User.query.filter_by(email = user_email).first()
+    return jsonify(user), 200
+
     body = request.get_json()
     body_email = body['email']
     body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
@@ -62,16 +83,6 @@ def handle_login():
 
 
 
-@api.route('/private', methods=[ 'GET'])
-@jwt_required()
-def handle_private():
-    user_email = get_jwt_identity()
-    user = User.query.filter_by(email=user_email).first()
-    
-    if user and user.is_active:
-        return jsonify(user=user.serialize()), 200
-    else:
-        return jsonify({"error": "Unauthorized or inactive user"}), 403
 
 
 
@@ -119,6 +130,8 @@ def get_random_content():
     except Exception as e:
         print("ERROR in /random-content:", e)
         return jsonify({ "error": str(e) }), 500
+
+
 
 
 
