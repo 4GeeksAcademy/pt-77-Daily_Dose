@@ -102,23 +102,29 @@ export const logout = (dispatch) => {
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 
 export const fetchRecommendations = async (genre) => {
-  const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${genre}`;
+  const results = [];
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    for (let page = 1; page <= 2; page++) {
+      const url = `https://www.omdbapi.com/?apikey=${API_KEY}&s=${genre}&type=movie&page=${page}`;
+      const response = await fetch(url);
+      const data = await response.json();
 
-    if (data.Response === "True") {
-      return data.Search.map(movie => ({
-        title: movie.Title,
-        year: movie.Year,
-        poster: movie.Poster,
-        type: movie.Type
-      }));
-    } else {
-      console.warn("OMDb API error:", data.Error);
-      return [];
+      if (data.Response === "True") {
+        results.push(...data.Search);
+      } else {
+        console.warn(`OMDb API error (page ${page}):`, data.Error);
+        break;
+      }
     }
+
+    return results.map((movie) => ({
+      title: movie.Title,
+      year: movie.Year,
+      poster: movie.Poster,
+      type: movie.Type,
+      imdbID: movie.imdbID
+    }));
   } catch (error) {
     console.error("OMDb fetch error:", error);
     return [];
@@ -126,31 +132,41 @@ export const fetchRecommendations = async (genre) => {
 };
 
 
-
 export const fetchBooksByGenre = async (genre) => {
   try {
-    const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${genre}`);
-    const data = await response.json();
+    const results = [];
 
-    if (data.items && data.items.length > 0) {
-      return data.items.slice(0, 5).map((book) => {
-        const volume = book.volumeInfo;
-        return {
-          title: volume.title || "Untitled",
-          author: volume.authors?.join(", ") || "Unknown",
-          image: volume.imageLinks?.thumbnail || "", 
-          type: "book",
-        };
-      });
-    } else {
-      console.warn("No books found for this genre.");
-      return [];
+    // Fetch two pages (0–9, 10–19)
+    for (let startIndex of [0, 10]) {
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=subject:${genre}&maxResults=10&startIndex=${startIndex}`
+      );
+      const data = await response.json();
+
+      if (data.items && data.items.length > 0) {
+        const books = data.items.map((book) => {
+          const volume = book.volumeInfo;
+          return {
+            title: volume.title || "Untitled",
+            author: volume.authors?.join(", ") || "Unknown",
+            image: volume.imageLinks?.thumbnail || "",
+            type: "📚 Book",
+            url:
+              volume.infoLink ||
+              `https://www.google.com/search?q=${encodeURIComponent(volume.title)}`
+          };
+        });
+        results.push(...books);
+      }
     }
+
+    return results;
   } catch (error) {
     console.error("Error fetching books:", error);
     return [];
   }
 };
+
 
 export const updateUser = async (dispatch, store, updatedUser) => {
   try {
@@ -180,14 +196,25 @@ export const updateUser = async (dispatch, store, updatedUser) => {
 };
 
 export const getSongsByGenre = async (genre) => {
-  const url = `https://itunes.apple.com/search?term=${genre}&entiy=song&limit=10`;
+  const url = `https://itunes.apple.com/search?term=${genre}&entity=song&limit=20`;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
-    return data.results;
+
+    return data.results.map((song) => ({
+      trackId: song.trackId,
+      trackName: song.trackName || "Untitled",
+      artistName: song.artistName || "Unknown Artist",
+      collectionName: song.collectionName || "Unknown Album",
+      artworkUrl100: song.artworkUrl100 || "",
+      previewUrl: song.previewUrl || "",
+      trackViewUrl: song.trackViewUrl || "#",
+      type: "music" 
+    }));
   } catch (err) {
     console.error("Failed to fetch songs:", err);
     return [];
   }
 };
+
