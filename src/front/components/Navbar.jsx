@@ -13,11 +13,11 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (!store.user?.first_name) {
-      getUser()
-    }
-  }, [])
+useEffect(() => {
+  if (store.access_token && (!store.user || !store.user.first_name)) {
+    getUser();
+  }
+}, [store.access_token]);
 
   return (
     <nav className="navbar navbar-dark" style={{backgroundColor: 'black'}}>
