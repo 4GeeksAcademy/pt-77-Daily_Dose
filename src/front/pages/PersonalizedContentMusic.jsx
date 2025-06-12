@@ -16,8 +16,8 @@ const PersonalizedContentMusic = () => {
     Excited: { music: "edm" },
     Tired: { music: "jazz" },
     Bored: { music: "rock" },
-    Anxious: { music: "hip-hop" },
-    Relaxed: { music: "lofi" }
+    Anxious: { music: "lofi" },
+    Relaxed: { music: "hip-hop" }
   };
 
 const handleAddPreferences = (song) => {

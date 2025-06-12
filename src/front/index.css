@@ -17,6 +17,10 @@
   animation: scroll-left 30s linear infinite;
 }
 
+.carousel-items.paused {
+  animation-play-state: paused;
+}
+
 @keyframes scroll-left {
   0% {
     transform: translateX(0%);
