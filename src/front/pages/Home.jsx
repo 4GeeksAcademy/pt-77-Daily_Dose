@@ -36,13 +36,13 @@ export const Home = () => {
           {store.message ? (
             <span>{store.message}</span>
           ) : (
-            <span className="text-dark fs-2">
+            <span className="text-dark fs-5">
             Sign up today and get your Dose of You!
             </span>
           )}
         </div>
 
-        <Link className = "btn btn-danger"to="/signup">GET STARTED</Link>
+        <Link className = "btn btn-lg btn-danger"to="/signup">GET STARTED</Link>
       </div>
     </div>
   );
