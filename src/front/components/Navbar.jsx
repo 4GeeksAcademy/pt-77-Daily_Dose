@@ -20,10 +20,10 @@ const Navbar = () => {
   }, [])
 
   return (
-    <nav className="navbar navbar-light bg-secondary">
+    <nav className="navbar navbar-light bg-dark">
       <div className="container">
         <Link to="/" className="navbar-brand mb-0 h1">
-          <img src="/logo.png" style={{ width: "50px" }} />
+          <img src="docs/assets/DD Logo.png" style={{ width: "70px" }} />
         </Link>
         <div className="ml-auto d-flex align-items-center">
           {!store.access_token ? (

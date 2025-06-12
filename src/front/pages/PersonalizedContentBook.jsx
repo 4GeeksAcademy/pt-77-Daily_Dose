@@ -45,8 +45,8 @@ const PersonalizedContentBook = () => {
   }, [state.feeling, state.activity]);
 
   return (
-    <div className="container mt-5 text-center">
-      <h2>📚 Books Recommendations:</h2>
+    <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
+      <div className="fs-1 text-warning">📚 Books Recommendations:</div>
       {recommendations.length > 0 ? (
         <div className="row justify-content-center mt-5">
           {recommendations.map((rec, index) => (

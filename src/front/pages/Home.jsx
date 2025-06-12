@@ -16,26 +16,34 @@ export const Home = () => {
   }, [location.state]);
 
   return (
-    <div className="text-center mt-5">
-    <Carousel />
-
-      {showWelcome && (
-        <div className="alert alert-success">
-          Welcome, {store.user?.email || "User"}!
+    <div>
+      <div className="d-flex mx-auto justify-content-center">
+        {/* <img src="docs/assets/DD Logo.png" style={{height: '100px'}}/> */}
+        <div className="DD"> DailyDose</div>
         </div>
-      )}
+      <div className="col-8 text-center mx-auto">
+          <div className="border rounded-5 py-4 bg-dark bg-opacity-75">
+            <Carousel />
+          </div>
 
-      <div className="alert alert-info">
-        {store.message ? (
-          <span>{store.message}</span>
-        ) : (
-          <span className="text-danger">
-           Welcome to Daily Dose 
-          </span>
+        {showWelcome && (
+          <div className="alert alert-success">
+            Welcome, {store.user?.email || "User"}!
+          </div>
         )}
-      </div>
 
-      <Link className = "btn btn-danger"to="/signup">GET STARTED</Link>
+        <div className=" col-4 alert alert-dark mx-auto mt-3">
+          {store.message ? (
+            <span>{store.message}</span>
+          ) : (
+            <span className="text-dark fs-2">
+            Sign up today and get your Dose of You!
+            </span>
+          )}
+        </div>
+
+        <Link className = "btn btn-danger"to="/signup">GET STARTED</Link>
+      </div>
     </div>
   );
 };

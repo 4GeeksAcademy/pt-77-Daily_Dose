@@ -20,11 +20,11 @@ const handleSubmit = (e) => {
 };
 
   return (
-    <div className="container mt-5 text-center mx-auto w-50">
-      <h2>Take this Quiz</h2>
+    <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
+      <div>Take this Quiz</div>
       <form onSubmit={handleSubmit}>
         <div className="mb-3 mt-4">
-          <label htmlFor="feeling" className="form-label">
+          <label htmlFor="feeling" className="form-label fs-1 text-warning">
             How are you feeling today?
           </label>
           <input
@@ -39,7 +39,7 @@ const handleSubmit = (e) => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">
+          <label className="form-label fs-1 text-warning">
             Choose what your mind feels like doing:
           </label>
           <select

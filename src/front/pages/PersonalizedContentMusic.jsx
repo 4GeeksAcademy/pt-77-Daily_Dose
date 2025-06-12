@@ -43,8 +43,8 @@ useEffect(() => {
 
 
   return (
-    <div className="container mt-5 text-center">
-      <h2>🎧 Music Recommendations</h2>
+    <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
+      <div className="fs-1 text-warning">🎧 Music Recommendations</div>
       {songs.length > 0 ? (
         <div className="row justify-content-center">
           {songs.map((song) => (
