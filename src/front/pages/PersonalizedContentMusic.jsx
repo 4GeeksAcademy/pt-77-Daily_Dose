@@ -6,41 +6,40 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 const PersonalizedContentMusic = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const {store, dispatch} = useGlobalReducer()
+  const { store, dispatch } = useGlobalReducer();
   const [songs, setSongs] = useState([]);
   const state = location.state || {};
 
-const moodToGenre = {
-  Happy: { music: "pop" },
-  Sad: { music: "acoustic" },
-  Excited: { music: "edm" },
-  Tired: { music: "jazz" },  
-  Bored: { music: "rock" },  
-  Anxious: { music: "hip-hop" },
-  Relaxed: { music: "lofi" } 
-};
-
+  const moodToGenre = {
+    Happy: { music: "pop" },
+    Sad: { music: "acoustic" },
+    Excited: { music: "edm" },
+    Tired: { music: "jazz" },
+    Bored: { music: "rock" },
+    Anxious: { music: "hip-hop" },
+    Relaxed: { music: "lofi" }
+  };
 
 const handleAddPreferences = (song) => {
-  const updated = [...(store.favorites || []), song];
+  const musicItem = { ...song, type: "music" }; 
+  const updated = [...(store.favorites || []), musicItem];
   dispatch({ type: "load_favorites", payload: updated });
   localStorage.setItem("favorites", JSON.stringify(updated));
 };
 
-useEffect(() => {
-  if (state.feeling) {
-    const genre = moodToGenre[state.feeling]?.music;
 
-    if (!genre) {
-      console.warn("No genre found for mood:", state.feeling);
-      return;
+  useEffect(() => {
+    if (state.feeling) {
+      const genre = moodToGenre[state.feeling]?.music;
+
+      if (!genre) {
+        console.warn("No genre found for mood:", state.feeling);
+        return;
+      }
+
+      getSongsByGenre(genre).then(setSongs);
     }
-
-    getSongsByGenre(genre).then(setSongs);
-  }
-}, [state.feeling]);
-
-
+  }, [state.feeling]);
 
   return (
     <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
@@ -59,14 +58,19 @@ useEffect(() => {
                 <button className="btn btn-outline-danger ms-5 " onClick={() =>handleAddPreferences(song)}><i className="fa-regular fa-heart"></i></button>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No music recommendations found.</p>
-      )}
+            ))}
+          </div>
+        ) : (
+          <p>No music recommendations found.</p>
+        )}
 
-      <button className="btn btn-outline-primary mt-3" onClick={() => navigate("/quiz")}>Retake Quiz</button>
+        <button
+          className="btn btn-danger mt-4 mb-5"
+          onClick={() => navigate("/quiz")}
+        >
+          Retake Quiz
+        </button>
+      </div>
     </div>
   );
 };

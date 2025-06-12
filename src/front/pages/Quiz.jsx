@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
@@ -6,18 +6,18 @@ const Quiz = () => {
   const [feeling, setFeeling] = useState("");
   const [activity, setActivity] = useState("");
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const state = { feeling, activity };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const state = { feeling, activity };
 
-  if (activity === "book") {
-    navigate("/personalized-book", { state });
-  } else if (activity === "movie") {
-    navigate("/personalized-movie", { state });
-  } else if (activity === "music") {
-    navigate("/personalized-music", { state });
-  }
-};
+    if (activity === "book") {
+      navigate("/personalized-book", { state });
+    } else if (activity === "movie") {
+      navigate("/personalized-movie", { state });
+    } else if (activity === "music") {
+      navigate("/personalized-music", { state });
+    }
+  };
 
   return (
     <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
@@ -54,11 +54,13 @@ const handleSubmit = (e) => {
             <option value="book">Read a Book</option>
           </select>
         </div>
-
-        <button type="submit" className="btn btn-primary">
-          Recommendations
-        </button>
-      </form>
+              <button type="submit" className="btn btn-success w-100 mt-3">
+                Get Recommendations
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

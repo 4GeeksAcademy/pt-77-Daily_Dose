@@ -3,12 +3,9 @@ import useGlobalReducer from '../hooks/useGlobalReducer.jsx';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../hooks/actions.js';
 
-
-
 export const Signup = () => {
   const { store, dispatch } = useGlobalReducer();
-  const [user, setUser] = useState({ first_name: "", last_name: "", email: "", password: ""});
-
+  const [user, setUser] = useState({ first_name: "", last_name: "", email: "", password: "" });
   const navigate = useNavigate();
 
   const handleSignup = (e) => {

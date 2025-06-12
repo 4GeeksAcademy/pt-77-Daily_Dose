@@ -36,3 +36,85 @@ footer {
     text-shadow:
        2px 4px 0 black
 }
+=======
+
+.daily {
+    transform: scale(2.0);
+    transform-origin: left center;
+}
+
+.carousel-track {
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 0;
+  position: relative;
+}
+
+.carousel-items {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll-left 30s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000000aa;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carousel-button.left {
+  left: 0;
+}
+
+.carousel-button.right {
+  right: 0;
+}
+
+
+.play-button-overlay {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px 14px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.image-wrapper:hover .play-button-overlay {
+  opacity: 1;
+}
+
+
+.quiz-bounce {
+  color: rgb(155, 191, 155);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.quiz-bounce:hover {
+  transform: scale(1.05);
+}
+

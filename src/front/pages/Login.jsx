@@ -1,4 +1,3 @@
-// === Login.jsx ===
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../hooks/actions";
@@ -14,7 +13,7 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await login(dispatch, user);
-    navigate("/quiz", { state: { justLoggedIn: true } });
+    navigate("/", { state: { justLoggedIn: true } });
   };
 
   return (

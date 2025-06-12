@@ -9,6 +9,11 @@ from flask_cors import CORS
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required, create_access_token
 import hashlib
 from hashlib import sha256
+import random
+
+
+
+
 
 api = Blueprint('api', __name__)
 
@@ -57,27 +62,16 @@ def handle_login():
     
 
 
-@api.route('/private', methods=['GET'])
+@api.route('/private', methods=[ 'GET'])
 @jwt_required()
-def handle_get_user():
+def handle_private():
     user_email = get_jwt_identity()
-    user = User.query.filter_by(email = user_email).first()
-    return jsonify(user), 200
-
-    body = request.get_json()
-    body_email = body['email']
-    body_password = hashlib.sha256(body['password'].encode("utf-8")).hexdigest()
-
-    user = User.query.filter_by(email=body_email).first()
-
-    if user and user.password == body_password:
-        access_token = create_access_token(identity=user.email)
-        return jsonify(access_token = access_token, user=user.serialize()), 200
+    user = User.query.filter_by(email=user_email).first()
+    
+    if user and user.is_active:
+        return jsonify(user=user.serialize()), 200
     else:
-        return jsonify("User not found"), 400
-
-
-
+        return jsonify({"error": "Unauthorized or inactive user"}), 403
 
 
 
@@ -101,6 +95,30 @@ def update_profile():
 
     except Exception as e:
         return jsonify({ "msg": "Internal Server Error", "error": str(e) }), 500
+
+@api.route('/random-content', methods=['GET'])
+def get_random_content():
+    try:
+        music = db.session.execute(db.select(MediaItem).filter_by(category="music")).scalars().all()
+        books = db.session.execute(db.select(MediaItem).filter_by(category="book")).scalars().all()
+        movies = db.session.execute(db.select(MediaItem).filter_by(category="movie")).scalars().all()
+
+        print("Music:", music)
+        print("Books:", books)
+        print("Movies:", movies)
+
+        def random_one(items):
+            return random.choice(items).serialize() if items else {}
+
+        return jsonify({
+            "music": random_one(music),
+            "book": random_one(books),
+            "movie": random_one(movies)
+        })
+
+    except Exception as e:
+        print("ERROR in /random-content:", e)
+        return jsonify({ "error": str(e) }), 500
 
 
 
