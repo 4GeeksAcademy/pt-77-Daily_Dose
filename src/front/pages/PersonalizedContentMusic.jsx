@@ -42,64 +42,21 @@ const handleAddPreferences = (song) => {
   }, [state.feeling]);
 
   return (
-    <div
-      style={{
-        background: 'url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover no-repeat',
-        minHeight: "100vh",
-        padding: "20px",
-        color: "white"
-      }}
-    >
-      <div className="container text-center">
-        <h2 className="mb-4">🎧 Music Recommendations</h2>
-
-        {songs.length > 0 ? (
-          <div className="row justify-content-center">
-            {songs.map((song) => (
-              <div
-                key={song.trackId}
-                className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-              >
-                <a
-                  href={song.trackViewUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-decoration-none"
-                >
-                  <div className="card h-100">
-                    <img
-                      src={
-                        song.artworkUrl100 ||
-                        "https://via.placeholder.com/180?text=No+Image"
-                      }
-                      className="card-img-top"
-                      alt={song.trackName}
-                      style={{ height: "180px", objectFit: "cover" }}
-                    />
-                    <div
-                      className="card-body d-flex flex-column"
-                      style={{ backgroundColor: "white", color: "black" }}
-                    >
-                      <h5 className="card-title">{song.trackName}</h5>
-                      <p className="card-text">Artist: {song.artistName}</p>
-                      <p className="card-text">Album: {song.collectionName}</p>
-                      <div className="d-flex align-items-center justify-content-between mt-2">
-                        {song.previewUrl && (
-                          <audio controls src={song.previewUrl} style={{ maxWidth: "70%" }} />
-                        )}
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={(e) => {
-                            e.preventDefault(); 
-                            handleAddPreferences(song);
-                          }}
-                        >
-                          <i className="fa-regular fa-heart"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </a>
+    <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
+      <div className="fs-1 text-warning">🎧 Music Recommendations</div>
+      {songs.length > 0 ? (
+        <div className="row justify-content-center">
+          {songs.map((song) => (
+            <div className="card m-3 mt-5" key={song.trackId} style={{ width: "18rem" }}>
+              <img src={song.artworkUrl100} className="card-img-top" alt={song.trackName} style={{ height: "180px", objectFit: "cover" }} />
+              <div className="card-body d-flex flex-column justify-content-between">
+                <h5 className="card-title">{song.trackName}</h5>
+                <p className="card-text">Artist: {song.artistName}</p>
+                <p className="card-text">Album: {song.collectionName}</p>
+                <div className="d-flex align-items-center justify-content-between">
+                <audio controls src={song.previewUrl} className="" />
+                <button className="btn btn-outline-danger ms-5 " onClick={() =>handleAddPreferences(song)}><i className="fa-regular fa-heart"></i></button>
+                </div>
               </div>
             ))}
           </div>

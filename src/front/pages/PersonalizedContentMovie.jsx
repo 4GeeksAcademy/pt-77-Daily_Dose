@@ -38,17 +38,8 @@ const PersonalizedContentMovie = () => {
   }, [state.feeling, state.activity]);
 
   return (
-    <div
-      style={{
-        background: 'url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover no-repeat',
-        minHeight: "100vh",
-        padding: "20px",
-        color: "white"
-      }}
-    >
-      <div className="container text-center">
-        <h2 className="mb-4">🎥 Movie Recommendations</h2>
-
+    <div className="container border rounded border-light mt-5 text-center w-75 bg-dark bg-opacity-75">
+      <div className="fs-1 text-warning">🎥 Movie Recomendations:</div>
         {recommendations.length > 0 ? (
           <div className="row justify-content-center">
             {recommendations.map((rec, index) => (

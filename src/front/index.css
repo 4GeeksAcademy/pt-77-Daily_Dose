@@ -1,3 +1,42 @@
+#root {
+    background-image: url('/workspaces/pt-77-Daily_Dose/docs/assets/movie-poster-background-q1zm830g0hfww2lk.jpg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 1080px;
+    height:auto;
+    
+}
+
+.Login {
+    color: yellow;
+    margin: auto;
+    text-align: center;
+    padding-top: 1%;
+    font-family: "DM Serif Text", serif;
+    font-size: 80px;
+    font-style: normal;
+    text-shadow:
+        2px 4px 0 black
+}
+
+.navbar {
+    font-family: "DM Serif Text", serif;
+}
+
+footer {
+    font-family: "DM Serif Text", serif;
+}
+
+.DD {
+    font-family: "DM Serif Text", serif;
+    text-align: center;
+    font-size: 80px;
+    color: yellow;
+    text-shadow:
+       2px 4px 0 black
+}
+=======
 
 .daily {
     transform: scale(2.0);
