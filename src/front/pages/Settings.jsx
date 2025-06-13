@@ -35,8 +35,16 @@ const Settings = () => {
   };
 
   return (
-    <div className="container text-center mt-5">
-      <h2 className="mb-3">Settings</h2>
+    <div style={{
+        background: 'url("/guitar.png") center/cover no-repeat',
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "20px"
+      }}>
+    <div className="container text-center mt-5" >
+      <h2 className="mb-3 text-light">Settings</h2>
       <div className="card mx-auto p-4 shadow" style={{ maxWidth: "400px" }}>
         <div className="mb-3">
           <strong>Password:</strong>
@@ -80,6 +88,7 @@ const Settings = () => {
           Log Out
         </button>
       </div>
+    </div>
     </div>
   );
 };

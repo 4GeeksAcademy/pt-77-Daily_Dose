@@ -46,7 +46,7 @@ const PersonalizedContentBook = () => {
   return (
     <div
       style={{
-        background: 'url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover no-repeat',
+        background: 'url("/book.png") center/cover no-repeat',
         minHeight: "100vh",
         padding: "20px",
         color: "white"

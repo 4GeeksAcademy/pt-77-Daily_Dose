@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <div
       style={{
-        background: 'url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover no-repeat',
+        background: 'url("/guitar.png") center/cover no-repeat',
         minHeight: '100vh',
         color: 'white',
         display: 'flex',
