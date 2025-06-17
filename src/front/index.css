@@ -1,46 +1,13 @@
-#root {
-    background-image: url('/workspaces/pt-77-Daily_Dose/docs/assets/movie-poster-background-q1zm830g0hfww2lk.jpg');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 1080px;
-    height:auto;
-    
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-size: 0.1rem;
 }
-
-.Login {
-    color: yellow;
-    margin: auto;
-    text-align: center;
-    padding-top: 1%;
-    font-family: "DM Serif Text", serif;
-    font-size: 80px;
-    font-style: normal;
-    text-shadow:
-        2px 4px 0 black
-}
-
-.navbar {
-    font-family: "DM Serif Text", serif;
-}
-
-footer {
-    font-family: "DM Serif Text", serif;
-}
-
-.DD {
-    font-family: "DM Serif Text", serif;
-    text-align: center;
-    font-size: 80px;
-    color: yellow;
-    text-shadow:
-       2px 4px 0 black
-}
-=======
 
 .daily {
-    transform: scale(2.0);
-    transform-origin: left center;
+  transform: scale(1.1); /* Optional scaling, removed 2.0 */
+  transform-origin: left center;
 }
 
 .carousel-track {
@@ -90,7 +57,6 @@ footer {
   right: 0;
 }
 
-
 .play-button-overlay {
   position: absolute;
   top: 45%;
@@ -109,7 +75,6 @@ footer {
   opacity: 1;
 }
 
-
 .quiz-bounce {
   color: rgb(155, 191, 155);
   font-size: 1.2rem;
@@ -121,4 +86,3 @@ footer {
 .quiz-bounce:hover {
   transform: scale(1.05);
 }
-

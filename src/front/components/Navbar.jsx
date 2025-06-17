@@ -22,7 +22,7 @@ useEffect(() => {
   return (
     <nav className="navbar navbar-light bg-dark">
       <div className="container">
-        <Link to="/" className="navbar-brand mb-0 h1">
+        <Link to="/" className="navbar-brand mb-0 ">
           <img src="docs/assets/DD Logo.png" style={{ width: "70px" }} />
         </Link>
         <div className="ml-auto d-flex align-items-center">
@@ -37,6 +37,7 @@ useEffect(() => {
             </>
           ) : (
             <>
+          
               <span className="me-3 text-light">Hello, {store.user?.first_name || "User"}</span>
               <div className="dropdown">
                 <button className="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,6 +63,7 @@ useEffect(() => {
                   </a></li>
                 </ul>
               </div>
+             
             </>
           )}
         </div>
