@@ -16,11 +16,11 @@ const PersonalizedContentBook = () => {
     Excited: { book: "short stories" },
     Tired: { book: "self-help" },
     Bored: { book: "fantasy" },
-    Anxious: { book: "self-help" },
+    Anxious: { book: "novela" },
     Relaxed: { book: "romance" }
   };
 
-  const handleAddPreferences = (rec) => {
+   const handleAddPreferences = (rec) => {
     const updated = [...store.favorites, rec];
     dispatch({ type: "load_favorites", payload: updated });
     localStorage.setItem("favorites", JSON.stringify(updated));
@@ -46,7 +46,7 @@ const PersonalizedContentBook = () => {
   return (
     <div
       style={{
-        background: 'url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4") center/cover no-repeat',
+        background: 'url("/book.png") center/cover no-repeat',
         minHeight: "100vh",
         padding: "20px",
         color: "white"
