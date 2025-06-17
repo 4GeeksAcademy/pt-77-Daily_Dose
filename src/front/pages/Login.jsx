@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../hooks/actions";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-
-
 export const Login = () => {
   const { dispatch } = useGlobalReducer();
   const [user, setUser] = useState({ email: "", password: "" });
@@ -17,37 +15,48 @@ export const Login = () => {
   };
 
   return (
-    <div>
-      <div className="Login">Login to DailyDose</div>
-    
-      <form onSubmit={handleLogin} className=" col-4 text-center mt-5 mb-4 mx-auto bg-dark bg-opacity-75 rounded border">
-        <div className="mb-3 mx-5">
-          <label htmlFor="email" className="form-label fs-4 text-warning">Email address:</label>
-          <input 
-            type="email" 
-            className="form-control" 
-            id="email" 
-            placeholder="name@example.com" 
-            onChange={(e) => setUser({ ...user, email: e.target.value })} 
-          />
-        </div>
-      <div className="mb-3 mx-5">
-          <label htmlFor="password" className="form-label fs-4 text-warning">Password:</label>
-          <input 
-            type="password" 
-            className="form-control" 
-            id="password" 
-            placeholder="Enter your password" 
-            onChange={(e) => setUser({ ...user, password: e.target.value })} 
-          />
-        </div>
-      <button type="submit" className="btn btn-primary mb-3">Login</button>
-      </form>
-
-      <div>
-        <div className="LoginSpace">
+    <div
+      style={{
+        background: 'url("/guitar.png") center/cover no-repeat',
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px"
+      }}
+    >
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4 bg-dark text-white p-4 rounded shadow-lg">
+            <h2 className="text-center mb-4">Log in</h2>
+            <form onSubmit={handleLogin}>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="name@example.com"
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Enter your password"
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-success w-100 mt-3">Continue</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>  
+    </div>
   );
 };

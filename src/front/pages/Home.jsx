@@ -8,33 +8,40 @@ export const Home = () => {
   const location = useLocation();
 
   return (
-    <div>
-      <div className="d-flex mx-auto justify-content-center">
-        {/* <img src="docs/assets/DD Logo.png" style={{height: '100px'}}/> */}
-        <div className="DD"> DailyDose</div>
-        </div>
-      <div className="col-8 text-center mx-auto">
-          <div className="border rounded-5 py-4 bg-dark bg-opacity-75">
-            <Carousel />
-          </div>
+    <div
+      style={{
+        background: 'url("/guitar.png") center/cover no-repeat',
+        minHeight: '100vh',
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '20px'
+      }}
+    >
+      <div className="container text-center mt-5">
+        <h1 className="display-4 fw-bold">Welcome to Daily Dose</h1>
+        <p className="lead mx-auto" style={{ maxWidth: '600px' }}>
+          Your personalized source for music, books, and more — tailored to your mood and interests.
+        </p>
 
-        {showWelcome && (
-          <div className="alert alert-success">
-            Welcome, {store.user?.email || "User"}!
-          </div>
+        {store.user ? (
+          <>
+            <h4 className="mt-4" style={{ fontFamily: "'Satisfy', cursive" }}>
+              Hello, {store.user.first_name || store.user.email}!{" "}
+              <a className="quiz-bounce text-light mt-4 d-block" href="/quiz">
+                Click To Find Your Daily Dose ❓
+              </a>
+            </h4>
+            <div className="mt-4">
+              <ContentCarousel />
+            </div>
+          </>
+        ) : (
+          <Link to="/signup" className="btn btn-light btn-lg mt-5">
+            GET STARTED
+          </Link>
         )}
-
-        <div className=" col-4 alert alert-dark mx-auto mt-3">
-          {store.message ? (
-            <span>{store.message}</span>
-          ) : (
-            <span className="text-dark fs-5">
-            Sign up today and get your Dose of You!
-            </span>
-          )}
-        </div>
-
-        <Link className = "btn btn-lg btn-danger"to="/signup">GET STARTED</Link>
       </div>
     </div>
   );
